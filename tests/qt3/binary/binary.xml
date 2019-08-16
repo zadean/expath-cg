@@ -12,7 +12,7 @@
         <param name="empty.bin" select="xs:base64Binary('')"/>
         <!-- 'Man' in base64 - 3 octets, 4 characters -->
         <param name="man.base" select="xs:base64Binary('TWFu')"/>
-        <param name="man.octets" select="77,97,110"/>
+        <param name="man.octets" select="(77,97,110)"/>
     </environment>
   
     <environment name="EXPath-binary.numeric">
@@ -1561,7 +1561,7 @@
       <result>
         <all-of>
             <assert-type>xs:double</assert-type>
-            <assert-eq>-0.0</assert-eq>
+            <assert-eq>-0.0e0</assert-eq>
         </all-of>
       </result>
    </test-case>
@@ -1667,7 +1667,7 @@
       <result>
         <all-of>
             <assert-type>xs:float</assert-type>
-            <assert-eq>-0.0</assert-eq>
+            <assert-eq>-0.0e0</assert-eq>
         </all-of>
       </result>
    </test-case>
@@ -1867,13 +1867,14 @@
       <description>unpack-unsigned-integer on long </description>
       <created by="John Lumley" on="2013-07-22"/>
       <modified by="John Lumley" on="2014-08-11" change="consistent EXPath naming"/>
+      <modified by="Zachary Dean" on="2019-08-16" change="Negative one (-1) is not an unsigned integer"/>
       <environment ref="EXPath-binary.numeric"/>
       <test>
                 bin:unpack-unsigned-integer(xs:base64Binary(xs:hexBinary('ffffffffffffffff')),0,8,'most-significant-first') </test>
       <result>
         <all-of>
             <assert-type>xs:integer</assert-type>
-            <assert-eq>-1</assert-eq>
+            <assert-eq>18446744073709551615</assert-eq>
         </all-of>
       </result>
    </test-case>
